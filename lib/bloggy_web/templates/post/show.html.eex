@@ -1,0 +1,43 @@
+<h1>Show Post</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </li>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @post.content %>
+  </li>
+
+  <li>
+    <strong>Created by:</strong>
+    <%= @post.created_by %>
+  </li>
+
+  <li>
+    <strong>Company:</strong>
+    <%= @post.company_id %>
+  </li>
+
+  <li>
+    <strong>Approved:</strong>
+    <%= @post.approved %>
+  </li>
+
+  <li>
+    <strong>Tag:</strong>
+    <%= @post.tag %>
+  </li>
+
+  <li>
+    <strong>Publish date:</strong>
+    <%= @post.publish_date %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
