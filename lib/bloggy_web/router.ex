@@ -28,12 +28,52 @@ defmodule BloggyWeb.Router do
 
     delete "/logout", SessionController, :delete
 
-    resources("/users", UserController, only: [:index, :show, :new, :create, :edit, :delete])
+    scope "/" do
+      pipe_through [BloggyWeb.Plugs.Admin]
 
-    resources("/companies", CompanyController, only: [:index, :show, :new, :create])
+      resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
 
-    resources("/posts", PostController, only: [:index, :show, :new, :create])
+      resources("/users", UserController, only: [:index, :show, :new, :create, :edit, :delete])
+
+      resources("/companies", CompanyController,
+        only: [:index, :show, :new, :create, :edit, :delete]
+      )
+    end
+
+    scope "/" do
+      pipe_through [BloggyWeb.Plugs.Editor]
+
+      resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+    end
+
+    # scope "/" do
+    #   pipe_through [BloggyWeb.Plugs.Journalist]
+
+    #   resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+    # end
+
+    scope "/" do
+      pipe_through [BloggyWeb.Plugs.Outsource]
+
+      resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+    end
   end
+
+  # scope "/owner", BloggyWeb do
+  #   pipe_through [:browser, BloggyWeb.Plugs.Owner]
+
+  #   get "/", PageController, :index
+
+  #   delete "/logout", SessionController, :delete
+
+  #   resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+
+  #   resources("/users", UserController, only: [:index, :show, :new, :create, :edit, :delete])
+
+  #   resources("/companies", CompanyController,
+  #     only: [:index, :show, :new, :create, :edit, :delete]
+  #   )
+  # end
 
   # Other scopes may use custom stacks.
   # scope "/api", BloggyWeb do

@@ -21,10 +21,11 @@
   <%= number_input f, :company_id %>
   <%= error_tag f, :company_id %>
 
+<%= if signed_in_role?(@conn) do %>
   <%= label f, :approved %>
   <%= checkbox f, :approved %>
   <%= error_tag f, :approved %>
-
+<% end %>
   <%= label f, :tag %>
   <%= text_input f, :tag %>
   <%= error_tag f, :tag %>
@@ -36,4 +37,5 @@
   <div>
     <%= submit "Save" %>
   </div>
+
 <% end %>

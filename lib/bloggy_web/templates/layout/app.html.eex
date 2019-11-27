@@ -17,8 +17,9 @@
         <%# <a href="/" class="brand-logo">Bloggy</a> %>
      
      <ul>
-       <li><%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %></li>
+       
         <%= if signed_in?(@conn) do %>
+        <li><%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %></li>
               <%# <li><a href='#' >Some place</a></li> %>
               <li><a class="dropdown-trigger" href="#!" data-target="user-actions"> <%= @current_user.email %></a></li>
             <% end %>

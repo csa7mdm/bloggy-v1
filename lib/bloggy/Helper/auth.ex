@@ -24,4 +24,8 @@ defmodule Bloggy.Helpers.Auth do
   def signed_in?(conn) do
     conn.assigns[:current_user]
   end
+
+  def signed_in_role?(conn) do
+    conn.assigns[:current_user_role]
+  end
 end

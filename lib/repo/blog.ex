@@ -38,6 +38,57 @@ defmodule Bloggy.Blog do
   def get_post!(id), do: Repo.get!(Post, id)
 
   @doc """
+  Gets User posts.
+
+  Raises `Ecto.NoResultsError` if the Post does not exist.
+
+  ## Examples
+
+      iex> get_user_posts!(123)
+      %Post{}
+
+      iex> get_user_posts!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_posts!(user_id) do
+    # Create a query
+    # where = [id: user_id]
+    # order_by = [desc: :published_at]
+    # select = [:id, :title, :body]
+    query = from u in Post, where: u.created_by == ^user_id
+    # , order_by: ^order_by, select: ^select
+
+    IO.inspect(Repo.all(query))
+  end
+
+  @doc """
+  Gets Company posts.
+
+  Raises `Ecto.NoResultsError` if the Post does not exist.
+
+  ## Examples
+
+      iex> get_company_posts!(123)
+      %Post{}
+
+      iex> get_company_posts!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_company_posts!(company_id) do
+    # Create a query
+    where = [id: company_id]
+    # order_by = [desc: :published_at]
+    # select = [:id, :title, :body]
+    query = from u in Post, where: u.company_id == ^where
+    # , order_by: ^order_by, select: ^select
+    # select: u.name
+
+    IO.inspect(Repo.all(query))
+  end
+
+  @doc """
   Creates a post.
 
   ## Examples

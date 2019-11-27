@@ -7,11 +7,20 @@ defmodule BloggyWeb.Plugs.Admin do
   def init(opts), do: opts
 
   def call(conn, _opts) do
+    IO.puts("Hi there >>>>")
+
     if user_id = Plug.Conn.get_session(conn, :current_user_id) do
       current_user = Accounts.get_user!(user_id)
 
-      conn
-      |> assign(:current_user, current_user)
+      if current_user.role == "1" do
+        conn
+        |> assign(:current_user_role, "Admin")
+        |> IO.inspect()
+      else
+        conn
+        |> redirect(to: "/login")
+        |> halt()
+      end
     else
       conn
       |> redirect(to: "/login")

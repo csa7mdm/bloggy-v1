@@ -5,9 +5,26 @@ defmodule BloggyWeb.PostController do
   alias Bloggy.Models.Post
 
   def index(conn, _params) do
-    posts = Blog.list_posts()
-    render(conn, "index.html", posts: posts)
+    IO.inspect(conn)
+
+    if conn.assigns[:current_user_role] == "Owner" or conn.assigns[:current_user_role] == "Admin" do
+      posts = Blog.list_posts()
+
+      render(conn, "index.html", posts: posts)
+    else
+      user_id = Plug.Conn.get_session(conn, :current_user_id)
+      posts = Blog.get_user_posts!(user_id)
+      render(conn, "index.html", posts: posts)
+    end
+
+    # posts = Blog.list_posts()
   end
+
+  # def index_super(conn, _params) do
+  #   posts = Blog.list_posts()
+  #   render(conn, "index.html", posts: posts)
+
+  # end
 
   def new(conn, _params) do
     changeset = Blog.change_post(%Post{})

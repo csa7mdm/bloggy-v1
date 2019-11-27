@@ -10,8 +10,14 @@ defmodule BloggyWeb.Plugs.Jouralist do
     if user_id = Plug.Conn.get_session(conn, :current_user_id) do
       current_user = Accounts.get_user!(user_id)
 
-      conn
-      |> assign(:current_user, current_user)
+      if current_user.role == 3 do
+        conn
+        |> assign(:current_user_role, "Journalist")
+      else
+        conn
+        |> redirect(to: "/login")
+        |> halt()
+      end
     else
       conn
       |> redirect(to: "/login")
