@@ -28,23 +28,31 @@ defmodule BloggyWeb.Router do
 
     delete "/logout", SessionController, :delete
 
-    scope "/" do
-      pipe_through [BloggyWeb.Plugs.Admin]
+    resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
 
-      resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+    resources("/users", UserController, only: [:index, :show, :new, :create, :edit, :delete])
 
-      resources("/users", UserController, only: [:index, :show, :new, :create, :edit, :delete])
+    resources("/companies", CompanyController,
+      only: [:index, :show, :new, :create, :edit, :delete]
+    )
 
-      resources("/companies", CompanyController,
-        only: [:index, :show, :new, :create, :edit, :delete]
-      )
-    end
+    # scope "/" do
+    #   pipe_through [BloggyWeb.Plugs.Admin]
 
-    scope "/" do
-      pipe_through [BloggyWeb.Plugs.Editor]
+    #   resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
 
-      resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
-    end
+    #   resources("/users", UserController, only: [:index, :show, :new, :create, :edit, :delete])
+
+    #   resources("/companies", CompanyController,
+    #     only: [:index, :show, :new, :create, :edit, :delete]
+    #   )
+    # end
+
+    # scope "/" do
+    #   pipe_through [BloggyWeb.Plugs.Editor]
+
+    #   resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+    # end
 
     # scope "/" do
     #   pipe_through [BloggyWeb.Plugs.Journalist]
@@ -52,11 +60,11 @@ defmodule BloggyWeb.Router do
     #   resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
     # end
 
-    scope "/" do
-      pipe_through [BloggyWeb.Plugs.Outsource]
+    # scope "/" do
+    #   pipe_through [BloggyWeb.Plugs.Outsource]
 
-      resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
-    end
+    #   resources("/posts", PostController, only: [:index, :show, :new, :create, :edit, :delete])
+    # end
   end
 
   # scope "/owner", BloggyWeb do

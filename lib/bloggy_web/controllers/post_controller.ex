@@ -4,6 +4,8 @@ defmodule BloggyWeb.PostController do
   alias Bloggy.Blog
   alias Bloggy.Models.Post
 
+  # plug(BloggyWeb.Plugs.Auth)
+
   def index(conn, _params) do
     IO.inspect(conn)
 

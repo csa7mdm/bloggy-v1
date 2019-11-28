@@ -4,6 +4,8 @@ defmodule BloggyWeb.CompanyController do
   alias Bloggy.Business
   alias Bloggy.Models.Company
 
+  # plug(BloggyWeb.Plugs.Auth)
+
   def index(conn, _params) do
     companies = Business.list_companies()
     render(conn, "index.html", companies: companies)

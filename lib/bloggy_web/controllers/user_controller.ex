@@ -4,7 +4,7 @@ defmodule BloggyWeb.UserController do
   alias Bloggy.Accounts
   alias Bloggy.Models.User
 
-  plug(BloggyWeb.Plugs.Admin)
+  # plug(BloggyWeb.Plugs.Auth)
 
   def index(conn, _params) do
     users = Accounts.list_users()
